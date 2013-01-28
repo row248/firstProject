@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title></title>
+    <title>New changes</title>
 </head>
 <body>
     <script type="text/javascript" src="debug.js"></script>
