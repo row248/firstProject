@@ -1,0 +1,46 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Сообщения</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/style.less">
+    <script src="../js/less.js" type="text/javascript"></script>
+</head>
+<body>
+    <?php drawNavBar() ?>
+    <span class="msg-delete-success"><?php echo $deleteMsg ?></span>
+    <table class="table table-condensed msg-table">
+        <thead>
+            <tbody>
+                <tr>
+                    <td>#</td>
+                    <td>email</td>
+                    <td>message</td>
+                    <td>phones</td>
+                    <td>links</td>
+                    <td>login</td>
+                    </td>
+                </tr>
+            </tbody>
+        </thead>
+        <?php
+        while ( $row = $sth->fetch() ) { ?>
+            <tr>
+                <td><?php echo empty($row['name'])? "—": $row['name'] ?> </td>
+                <td><?php echo $row['email'] ?> </td>
+                <td class="td-message"><?php echo $row['message'] ?> </td>
+                <td><?php echo empty($row['phones'])? "—": $row['phones'] ?> </td>
+                <td><?php echo empty($row['links'])? "—": $row['links'] ?> </td>
+                <td><?php echo empty($row['login'])? "anonym": $row['login'] ?> </td>
+                <td>
+                <form class="form-delete" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <input type="hidden" name="csrf_token" value="<? echo getToken() ?>">
+                    <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                    <input class="submit-delete" type="submit" value="Удалить" name="delete">
+                </form>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+</body>
+</html>

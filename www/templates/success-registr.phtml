@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Успешая регистрация</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/style.less">
+    <script src="../js/less.js" type="text/javascript"></script>
+    <script>
+
+        function redirect() {
+            location="../index.php";
+        }
+        setTimeout( 'redirect()', 2500);
+
+    </script>    
+</head>
+<body>
+    <?php require '../nav-menu.php' ?>
+    <?php //drawNavBar() Так как шаблоны уже в другой папке, а мне лень делать ради одного предложения пхп файл то обойдемся без меню ?>
+    <h3 class="success-registr">Вы успешно зарегистировались. Теперь вы можете <a href="../login.php">войти в систему</a> через свой логин и пароль.</h3>
+</body>
+</html>

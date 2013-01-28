@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/style.less">
+    <script src="../js/less.js" type="text/javascript"></script>
+</head>
+<body>
+    <?php drawNavBar() ?>
+    <div class="main registration">
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <input type="hidden" name="csrf_token" value="<?php echo getToken() ?>">
+            <div class="field">
+                <label for="login">Логин</label>
+                <span class="label label-important"><?php echo $loginError ?></span>
+                <input type="text" id="login" class="inp" name="login" value="<?= htmlspecialchars($login, ENT_QUOTES) ?>">
+            </div>
+            <div class="field">
+                <label for="password1">Пароль</label>
+                <span class="label label-important"><?php echo $passwordError1 ?></span>
+                <input type="password" id="password1" class="inp" name="password1" value="<? htmlspecialchars($password1, ENT_QUOTES) ?>">
+            </div>
+            <div class="field">
+                <label for="password2">Повторите пароль</label>
+                <span class="label label-important"><?php echo $passwordError2 ?></span>
+                <input type="password" id="password2" class="inp" name="password2">
+            </div>
+            <div class="field">
+                <input class="btn btn-success" type="submit" name="submit" value="Зарегистироваться">
+            </div>
+        </form>
+        <div class="alert alert-info">
+            <ul>
+                <li class="reg-solution">Логин должен быть более 4 символов и состоять только из латинских букв и цифр</li>
+                <li class="reg-solution">В логине должна быть по крайней мере 1 буква</li>
+                <li class="reg-solution">Длина пароля должная быть более 5 символов</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

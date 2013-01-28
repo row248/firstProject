@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Форма</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/style.less">
+    <script src="../js/less.js" type="text/javascript"></script>
+</head>
+<body>
+    <?php drawNavBar() ?>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <input type="hidden" name="csrf_token" value="<?php echo getToken() ?>" />
+       <div class="main">
+            <div class="field">
+                <span class="entered"><?php echo $loginName ?></span>
+                <label for="name">Имя</label>
+
+                <span class="label label-important"><?php echo $nameError ?></span>
+
+                <input type="text" id="name" class="inp" name="name" value="<?= htmlspecialchars($name, ENT_QUOTES) ?>">
+            </div>
+            <div class="field">
+                <label for="email">Емаил*</label>
+
+                <span class="label label-important"><?php echo $emailError ?></span>
+
+                <input type="text" id="email" class="inp" name="email" value="<?= htmlspecialchars($email, ENT_QUOTES) ?>">
+            </div>
+            <div class="field">
+                <label for="message">Сообщение*</label>
+
+                <span class="label label-important"><?php echo $messageError ?></span>
+
+                <textarea class="inp" rows="10" id="message" name="message"><?= htmlspecialchars($message, ENT_QUOTES) ?></textarea>
+            </div>
+            <div class="field">
+                <label for="phone">Телефон</label>
+
+                <span class="label label-important"><?php echo $phoneError ?></span>
+
+                <input type="text" class="inp" id="phone" name="phone" value="<?= htmlspecialchars($phone, ENT_QUOTES) ?>">
+            </div>
+            <div class="field">
+                <label for="link">Сайт</label>
+                <input type="text" class="inp" id="link" name="link" value="<?= htmlspecialchars($link, ENT_QUOTES) ?>">
+            </div>
+            <div class="field">
+                <input type="submit" value="Отправить" name="submit" class="btn btn-info">
+            </div>
+    </form>
+</body>
+</html>

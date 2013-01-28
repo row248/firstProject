@@ -1,0 +1,4 @@
+exception 'PDOException' with message 'SQLSTATE[42000] [1044] Access denied for user ''@'localhost' to database 'cobaka'' in Z:\home\home\www\login.php:25
+Stack trace:
+#0 Z:\home\home\www\login.php(25): PDO->__construct('mysql:host=loca...', 'roo', '')
+#1 {main}
