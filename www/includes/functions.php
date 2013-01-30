@@ -10,18 +10,18 @@ function recordError($error) {
 /*****CSRF*****/
 
 function getToken() {
-    if ( !isset($_SESSION['request_token']) ) {
+    //if ( !isset($_SESSION['request_token']) ) {
         return $_SESSION['request_token'] = md5( time() . mt_rand() . mt_rand() );
-    } else {
-        return $_SESSION['request_token'];
-    }
+    //} else {
+        //return $_SESSION['request_token'];
+    //}
 }
 
 
 function checkTokens($key) {
     if ( isset($_SESSION['request_token']) ) {
         $token = $_SESSION['request_token'];
-        unset($_SESSION['request_token']);
+        //unset($_SESSION['request_token']);
 
         return $key === $token;
 
@@ -32,7 +32,7 @@ function checkTokens($key) {
 
 /*****END CSRF*****/
 
-/* Max messages 400 symbols */
+/* Max messages length 400 symbols */
 function cutText($text) {
     if ( mb_strlen($text) > 400 ) {
         $text  = mb_substr($text, 0, 400);
