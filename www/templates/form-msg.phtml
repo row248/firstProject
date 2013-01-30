@@ -8,8 +8,8 @@
     <script src="../js/less.js" type="text/javascript"></script>
 </head>
 <body>
-    <?php drawNavBar() ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <span class="csrf-error"><?php echo $csrfError ?></span>
         <input type="hidden" name="csrf_token" value="<?php echo getToken() ?>" />
        <div class="main">
             <div class="field">

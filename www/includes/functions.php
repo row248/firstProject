@@ -1,17 +1,10 @@
 <?php
 
-/*** Where save logs ***/
-
-if ($_SERVER['HTTP_HOST'] === "scenario.leehoan.com") {
-    define('LOG_WAY', '/home/scenar/domains/scenario.leehoan.com/logs/');
-} else {
-    define('LOG_WAY', 'Z:/home/home/logs/');
-}
-    
+mb_internal_encoding('utf-8');
 
 function recordError($error) {
     $time = date("F-j-Y-H-i");
-    file_put_contents(LOG_WAY . $time . '.txt', $error);
+    file_put_contents(PATH . $time . '.txt', $error);
 } 
 
 /*****CSRF*****/
@@ -37,5 +30,14 @@ function checkTokens($key) {
     }
 }
 
-
 /*****END CSRF*****/
+
+/* Max messages 400 symbols */
+function cutText($text) {
+    if ( mb_strlen($text) > 400 ) {
+        $text  = mb_substr($text, 0, 400);
+        $text .= '...';
+    }
+
+    return $text;
+}

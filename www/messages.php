@@ -1,12 +1,11 @@
 <?php
 
 error_reporting(-1);
-
-require '../hide/config.php';
-require 'nav-menu.php';
-require 'includes/functions.php';
-
 session_start();
+
+require_once '../hide/config.php';
+require_once 'nav-menu.php';
+require_once 'includes/functions.php';
 
 /**** CSRF *****/
 
@@ -22,15 +21,15 @@ if ( isset($_GET['notify']) && $_GET['notify'] == 'delete' ) {
 
 if ( isset($_SESSION['right']) && $_SESSION['right'] === ACCESS_ADMIN ) {
 
+
+    /* connect */
     try {
         $dbh = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPassword);
-        $sth = $dbh->query('SELECT * FROM `form` ');
-        $sth->setFetchMode(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        echo "<h2>Возникла тех. неполадка, зайдите на сайт позже</h2>";
         recordError($e);
         exit();
     }
+
 
     if ( isset($_POST['delete']) && checkTokens($_POST['csrf_token']) ) {
         $id = $_POST['id'];
@@ -44,8 +43,18 @@ if ( isset($_SESSION['right']) && $_SESSION['right'] === ACCESS_ADMIN ) {
         } catch (PDOException $e) {
             echo "<h2>Возникла тех. неполадка, зайдите на сайт позже</h2>";
             recordError($e);
-            exit();
         }
+
+        exit();
+    }
+
+    try {
+        $sth = $dbh->query('SELECT * FROM `form` ');
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "<h2>Возникла тех. неполадка, зайдите на сайт позже</h2>";
+        recordError($e);
+        exit();
     }
 
 } else {

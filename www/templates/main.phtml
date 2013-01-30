@@ -8,17 +8,15 @@
     <script src="../js/less.js" type="text/javascript"></script>
 </head>
 <body class="index">
-    <?php drawNavBar() ?>
-    <div class="span9">
+    <div class="reg-msg-main">
 
-        <h3>Последние сообщения от зарегистрированный пользователей</h3>
+        <h3>Последние сообщения от зарегистрированных пользователей</h3>
         
         <?php
-        while ( $row = $sth->fetch() ) { ?>
-            <p class="p-registr-messages"><?php echo $row['login'] ?></p>
-            <span class="registr-messages"><?php echo $row['message'] ?></span>
-            
-        <?php } ?>
+        while ( $row = $sth->fetch() ): ?>
+            <p class="p-registr-messages"><?php echo $row['login'] ?><span class="registr-messages">пишет:</span></p>
+            <span class="registr-messages"><?php echo cutText($row['message']) ?></span>
+        <?php endwhile; ?>
 
     </div>
 </body>

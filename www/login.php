@@ -3,9 +3,9 @@ error_reporting(-1);
 
 session_start();
 
-require '../hide/config.php';
-require 'nav-menu.php';
-require 'includes/functions.php';
+require_once '../hide/config.php';
+require_once 'nav-menu.php';
+require_once 'includes/functions.php';
 
 $error = '';
 

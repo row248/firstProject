@@ -1,10 +1,5 @@
-<html>
-<head>
-    <title>New changes</title>
-</head>
-<body>
-    <script type="text/javascript" src="debug.js"></script>
-    Hello
-    <button onclick="debug('hide button 1')">Hide1</button>
-</body>
-</html>
+<?php
+
+error_reporting(-1);
+mb_internal_encoding('utf-8');
+echo mb_strlen('Тут несколько букв'); 

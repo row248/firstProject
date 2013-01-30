@@ -10,7 +10,7 @@ require_once 'includes/functions.php';
 
 /**** CSRF *****/
 
-getToken(); 
+//getToken(); Я наверно запутался. Здесь это незачем вызывать же? Получается это лишний вызов. Достаточно в шаблоке в скрытом поле вызвать эту фунцию
 
 /**** CSRF ****/
 
@@ -18,11 +18,14 @@ getToken();
 $loginError = '';
 $passwordError1 = '';
 $passwordError2 = '';
+$csrfError = '';
+
+/* Variables */
+isset($_POST['login'])     ? $login     = trim($_POST['login'])      :  $login = '';
+isset($_POST['password1']) ? $password1 = trim($_POST['password1'])  :  $password1 = '';
+isset($_POST['password2']) ? $password2 = trim($_POST['password2'])  :  $password2 = '';
 
 if ( isset($_POST['submit']) && checkTokens($_POST['csrf_token']) ) {
-    isset($_POST['login'])     ? $login     = trim($_POST['login'])      :  $login = '';
-    isset($_POST['password1']) ? $password1 = trim($_POST['password1'])  :  $password1 = '';
-    isset($_POST['password2']) ? $password2 = trim($_POST['password2'])  :  $password2 = '';
 
     /* If login already use */
 
@@ -105,14 +108,13 @@ if ( isset($_POST['submit']) && checkTokens($_POST['csrf_token']) ) {
         }
         
         header("Location: templates/success-registr.phtml");
+        exit();
 
     }
 
 
-} else {
-    $login = '';
-    $password1 = '';
-
+} elseif ( isset($_POST['submit']) && !checkTokens($_POST['csrf_token']) ) {
+    $csrfError = 'Вы превысили время ожидания ввода формы, пожалуйста заполните её еще раз';
 }
 
 require 'templates/register.phtml';

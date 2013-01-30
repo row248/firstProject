@@ -5,20 +5,22 @@ error_reporting(-1);
 
 session_start();
 
-require '../hide/config.php';
-require 'nav-menu.php';
-require 'includes/functions.php';
+require_once '../hide/config.php';
+require_once 'nav-menu.php';
+require_once 'includes/functions.php';
 
 /**** CSRF *****/
 
-getToken(); 
+//getToken(); Я наверно запутался. Здесь это незачем вызывать же? Получается это лишний вызов. Достаточно в шаблоке в скрытом поле вызвать эту фунцию
 
 /**** CSRF ****/
 
+/* Errors */
 $nameError = '';
 $emailError = '';
 $messageError = '';
 $phoneError = '';
+$csrfError = '';
 
 $loginName = "Вы не вошли в систему";
 
@@ -26,15 +28,18 @@ if ( isset($_SESSION['login']) ) {
     $loginName = "Вы вошли в систему, как " . $_SESSION['login'];
     $login = $_SESSION['login'];
 } else {
-    $login = null;
+    $login = 'anonym';
 }
 
+/* Variables */
+isset($_POST['name'])   ? $name    = trim($_POST['name'])   :    $name = '';
+isset($_POST['email'])  ? $email   = trim($_POST['email'])  :   $email = '';
+isset($_POST['message'])? $message = trim($_POST['message']): $message = '';
+isset($_POST['phone'])  ? $phone   = trim($_POST['phone'])  :   $phone = '';
+isset($_POST['link'])   ? $link    = trim($_POST['link'])   :    $link = '';
+
+
 if ( isset($_POST['submit']) && checkTokens($_POST['csrf_token']) ) {
-    isset($_POST['name'])   ? $name    = trim($_POST['name'])   :    $name = '';
-    isset($_POST['email'])  ? $email   = trim($_POST['email'])  :   $email = '';
-    isset($_POST['message'])? $message = trim($_POST['message']): $message = '';
-    isset($_POST['phone'])  ? $phone   = trim($_POST['phone'])  :   $phone = '';
-    isset($_POST['link'])   ? $link    = trim($_POST['link'])   :    $link = '';
 
     if ( empty($email) ) {
         $emailError = "Введите емаил";
@@ -93,13 +98,11 @@ if ( isset($_POST['submit']) && checkTokens($_POST['csrf_token']) ) {
                 header("Location: templates/success.phtml");
                 exit();
         }
-    }
-} else {
-    $name = '';
-    $email = '';
-    $message = '';
-    $phone = '';
-    $link = '';
+
+    }   
+
+} elseif ( isset($_POST['submit']) && !checkTokens($_POST['csrf_token']) ) {
+    $csrfError = 'Вы превысили время ожидания ввода формы, пожалуйста заполните её еще раз';
 }
 
 require 'templates/form-msg.phtml';

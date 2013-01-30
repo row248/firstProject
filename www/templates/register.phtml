@@ -8,7 +8,7 @@
     <script src="../js/less.js" type="text/javascript"></script>
 </head>
 <body>
-    <?php drawNavBar() ?>
+    <span class="csrf-error"><?php echo $csrfError ?></span>
     <div class="main registration">
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <input type="hidden" name="csrf_token" value="<?php echo getToken() ?>">
